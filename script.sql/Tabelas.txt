@@ -1,0 +1,43 @@
+IF DB_ID('VendasDB') IS NOT NULL
+BEGIN
+    ALTER DATABASE VendasDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE VendasDB;
+END
+GO
+
+CREATE DATABASE VendasDB;
+GO
+
+USE VendasDB;
+GO
+
+
+CREATE TABLE Clientes (
+    ClienteID INT IDENTITY(1,1) PRIMARY KEY,
+    Nome NVARCHAR(100) NOT NULL,
+    CPF CHAR(11) NOT NULL UNIQUE,
+    DataCadastro DATE NOT NULL
+);
+
+CREATE TABLE Produtos (
+    ProdutoID INT IDENTITY(1,1) PRIMARY KEY,
+    Nome NVARCHAR(100) NOT NULL,
+    PrecoUnitario DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE Pedidos (
+    PedidoID INT IDENTITY(1,1) PRIMARY KEY,
+    ClienteID INT NOT NULL,
+    DataPedido DATE NOT NULL,
+    CONSTRAINT FK_Pedidos_Clientes FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+
+CREATE TABLE ItensPedido (
+    ItemPedidoID INT IDENTITY(1,1) PRIMARY KEY,
+    PedidoID INT NOT NULL,
+    ProdutoID INT NOT NULL,
+    Quantidade INT NOT NULL CHECK (Quantidade > 0),
+    PrecoUnitario DECIMAL(10,2) NOT NULL,
+    CONSTRAINT FK_ItensPedido_Pedidos FOREIGN KEY (PedidoID) REFERENCES Pedidos(PedidoID),
+    CONSTRAINT FK_ItensPedido_Produtos FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+);

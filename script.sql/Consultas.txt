@@ -1,0 +1,46 @@
+A)
+SELECT 
+    c.Nome AS Cliente,
+    COUNT(DISTINCT p.PedidoID) AS TotalPedidos,
+    SUM(i.Quantidade * i.PrecoUnitario) AS ValorTotal
+FROM Clientes c
+JOIN Pedidos p ON c.ClienteID = p.ClienteID
+JOIN ItensPedido i ON p.PedidoID = i.PedidoID
+GROUP BY c.Nome
+ORDER BY ValorTotal DESC;
+
+
+B)
+SELECT 
+    pr.Nome AS Produto,
+    SUM(i.Quantidade) AS TotalVendido
+FROM Produtos pr
+JOIN ItensPedido i ON pr.ProdutoID = i.ProdutoID
+GROUP BY pr.Nome
+ORDER BY TotalVendido DESC;
+
+
+C)
+SELECT 
+    c.Nome AS Cliente,
+    SUM(i.Quantidade * i.PrecoUnitario) AS ValorTotal
+FROM Clientes c
+JOIN Pedidos p ON c.ClienteID = p.ClienteID
+JOIN ItensPedido i ON p.PedidoID = i.PedidoID
+GROUP BY c.Nome
+HAVING SUM(i.Quantidade * i.PrecoUnitario) > 1000
+ORDER BY ValorTotal DESC;
+
+D)
+SELECT 
+    c.Nome AS Cliente,
+    p.DataPedido,
+    pr.Nome AS Produto,
+    i.Quantidade,
+    (i.Quantidade * i.PrecoUnitario) AS TotalItem
+FROM Clientes c
+JOIN Pedidos p ON c.ClienteID = p.ClienteID
+JOIN ItensPedido i ON p.PedidoID = i.PedidoID
+JOIN Produtos pr ON i.ProdutoID = pr.ProdutoID
+ORDER BY c.Nome, p.DataPedido;
+

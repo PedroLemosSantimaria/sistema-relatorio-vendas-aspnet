@@ -1,0 +1,49 @@
+INSERT INTO Clientes (Nome, CPF, DataCadastro) VALUES
+('João Silva', '12345678901', '2024-01-10'),
+('Maria Souza', '23456789012', '2024-02-15'),
+('Carlos Pereira', '34567890123', '2024-03-20'),
+('Ana Costa', '45678901234', '2024-04-05'),
+('Pedro Lima', '56789012345', '2024-05-12');
+
+
+INSERT INTO Produtos (Nome, PrecoUnitario) VALUES
+('Notebook', 3500.00),
+('Mouse', 80.00),
+('Teclado', 150.00),
+('Monitor', 1200.00),
+('Impressora', 900.00);
+
+
+INSERT INTO Pedidos (ClienteID, DataPedido) VALUES
+(1, '2024-06-01'),
+(2, '2024-06-05'),
+(3, '2024-06-07'),
+(4, '2024-06-10'),
+(5, '2024-06-15'),
+(1, '2024-07-01'),
+(2, '2024-07-03');
+
+
+INSERT INTO ItensPedido (PedidoID, ProdutoID, Quantidade, PrecoUnitario) VALUES
+(1, 1, 1, 3500.00),  
+(1, 2, 2, 80.00),   
+(2, 3, 1, 150.00),  
+(2, 4, 1, 1200.00), 
+(3, 5, 2, 900.00),  
+(4, 1, 1, 3500.00), 
+(5, 2, 3, 80.00),   
+(6, 4, 2, 1200.00), 
+(7, 3, 1, 150.00);  
+
+
+CREATE INDEX IX_Pedidos_Cliente_Data ON Pedidos(ClienteID, DataPedido);
+CREATE INDEX IX_ItensPedido_Produto ON ItensPedido(ProdutoID);
+
+
+SELECT 'Clientes' AS Tabela, COUNT(*) AS Qtde FROM Clientes
+UNION ALL
+SELECT 'Produtos', COUNT(*) FROM Produtos
+UNION ALL
+SELECT 'Pedidos', COUNT(*) FROM Pedidos
+UNION ALL
+SELECT 'ItensPedido', COUNT(*) FROM ItensPedido;

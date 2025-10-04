@@ -24,7 +24,7 @@ Ele consiste em um sistema de **gestão de vendas** com **relatórios gerados vi
 - ADO.NET (consulta de dados)
 
 ## 🔹 Estrutura do projeto
-# Sales Report ASP.NET (C# + SQL Server)
+# Relatório de venda ASP.NET (C# + SQL Server)
 
 Este projeto foi desenvolvido como parte de um teste técnico para vaga de Desenvolvedor C#.  
 Ele consiste em um sistema de **gestão de vendas** com **relatórios gerados via ReportViewer (RDLC)**.
